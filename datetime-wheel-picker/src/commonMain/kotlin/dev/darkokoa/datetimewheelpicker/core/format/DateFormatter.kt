@@ -4,7 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.text.intl.Locale
-import datetime_wheel_picker.datetime_wheel_picker.generated.resources.*
+import com.mangala.datetime_wheel_picker.generated.resources.Res
+import com.mangala.datetime_wheel_picker.generated.resources.*
 import kotlinx.datetime.Month
 import kotlinx.datetime.number
 import org.jetbrains.compose.resources.StringResource

@@ -1,13 +1,32 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
+import java.net.URI
 
 plugins {
   alias(libs.plugins.multiplatform)
   alias(libs.plugins.compose)
   alias(libs.plugins.compose.compiler)
   alias(libs.plugins.android.library)
-  alias(libs.plugins.maven.publish)
+  id("maven-publish")
+}
+
+group = "com.mangala"
+version = "1.0"
+
+publishing {
+  repositories {
+    mavenLocal()
+    maven {
+      name = "GitHubPackages"
+      url = URI("https://maven.pkg.github.com/trainingdeveloperpro/compose-datetime-wheel-picker")
+      credentials {
+        username = gradleLocalProperties(rootDir, providers).getProperty("GITHUB_ACTOR")
+        password = gradleLocalProperties(rootDir, providers).getProperty("GITHUB_TOKEN")
+      }
+    }
+  }
 }
 
 kotlin {
@@ -107,9 +126,4 @@ android {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
   }
-}
-
-mavenPublishing {
-  publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.S01, automaticRelease = true)
-  signAllPublications()
 }
